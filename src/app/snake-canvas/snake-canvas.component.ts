@@ -11,6 +11,8 @@ export class SnakeCanvasComponent implements OnInit {
 
   @ViewChild('myCanvas') canvasRef: ElementRef;
 
+  protected running: boolean = false;
+
   constructor () {
   }
 
@@ -60,6 +62,19 @@ export class SnakeCanvasComponent implements OnInit {
      */
   }
 
+  private paint() {
+    // Check that we're still running.
+    if (!this.running) {
+      return;
+    }
+
+    const ctx: CanvasRenderingContext2D =
+      this.canvasRef.nativeElement.getContext('2d');
+
+
+
+    requestAnimationFrame(() => this.paint());
+  }
 
   private drawCircle (ctx: CanvasRenderingContext2D, x: number, y: number) {
     ctx.beginPath();
@@ -67,5 +82,7 @@ export class SnakeCanvasComponent implements OnInit {
     ctx.arc(x, y, SnakeCanvasComponent.startRadius, 0, Math.PI * 2);
     ctx.fill();
   }
+
+  public changeRun() { this.running = !this.running; }
 
 }
