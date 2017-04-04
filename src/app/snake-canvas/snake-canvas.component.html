@@ -1,5 +1,5 @@
 <div>
-  <button (click)="changeRun()">{{running ? 'Остановить' : 'Запустить'}}</button> : {{running ? 'игра запущена' : 'пауза'}}
+  <button (click)="changeRun()">{{running ? 'Stop' : 'Run'}}</button> : {{running ? 'game is on' : 'game is on pause'}}
   <input type="number" [(ngModel)]="snakeLength"/>
 </div>
 <div>{{lifeCounert}}</div>

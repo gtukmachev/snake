@@ -1,5 +1,21 @@
 # Snake
 
+The project was created with my son (8 years). He love programming in Scratch 2 and this is his first
+experience with real programming.
+
+
+Here you can see an example of how you can draw using HTML5 canvas in the Angular2 application.
+
+## How to play
+
+* Start the project (command `ng serve` in root project folder) and open page in a browser: `localhost:4200`. 
+* Press the button on the page.
+* move mouse pointer onto game area.
+* press mouse button - the snake will start a movement in direction of mouse pointer.
+* if you leave the mouse button - the snake will continue movement with last remember direction.
+  
+# Standard instruction of Angular-cli generated project:
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
 ## Development server
