@@ -22,6 +22,7 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   private timerDelay = 20;
   protected lifeCounter: number = 0;
   protected snakeElements: SnakeElement[] = [];
+  snakeLength: number = 20;
 
   protected mouseDown = false;
   protected mouseEvent: MouseEvent;
@@ -75,13 +76,13 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   private gameStep(): void {
     if (!this.running) { return; }
 
-    this.cycleFrameCounter++;
+    this.cycleFrameCounter = this.cycleFrameCounter + 1;
 
     let head = this.snakeElements[this.snakeElements.length-1];
     if (this.cycleFrameCounter >= this.stayCloneAfter) {
       this.cycleFrameCounter = 0;
       this.lifeCounter++;
-      head = new SnakeElement(head.x, head.y, this.lifeCounter + 10 );
+      head = new SnakeElement(head.x, head.y, this.lifeCounter + this.snakeLength );
       this.snakeElements.push( head );
     }
 
