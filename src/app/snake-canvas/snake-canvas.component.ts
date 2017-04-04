@@ -14,14 +14,12 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   private xSize: number = 1000;
   private ySize: number = 800;
 
+  protected running: boolean = false;
+
   private stepLength = 2;
   private stayCloneAfter = 7;
   private cycleFrameCounter = 0;
   private timerDelay = 20;
-
-
-  protected running: boolean = false;
-
   protected lifeCounter: number = 0;
   protected snakeElements: SnakeElement[] = [];
 
@@ -87,8 +85,8 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
       this.snakeElements.push( head );
     }
 
-    head.x += this.dx;
-    head.y += this.dy;
+    head.x += this.dx; head.x = Math.min(head.x, this.xSize); head.x = Math.max(head.x, 0);
+    head.y += this.dy; head.y = Math.min(head.y, this.ySize); head.y = Math.max(head.y, 0);
 
     if (this.snakeElements[0].whenDie < this.lifeCounter) {
       this.snakeElements = this.snakeElements.slice(1, this.snakeElements.length);
@@ -134,6 +132,8 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   public changeRun () {
     this.running = !this.running;
     if (this.running) {
+      this.lifeCounter = 0;
+      this.cycleFrameCounter = 0;
       this.snakeElements = [new SnakeElement(30,100, 10)];
       this.gameTimer = Observable.timer(500, this.timerDelay)
         .subscribe(
