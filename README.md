@@ -1,6 +1,7 @@
 # Snake
 
-The project was created with my son (8 years). He love programming in Scratch 2 and this is his first
+The project was created with my son (8 years). He love programming in "Scratch 2" [https://scratch.mit.edu/scratch2download/]
+and this is his first
 experience with real programming.
 
 

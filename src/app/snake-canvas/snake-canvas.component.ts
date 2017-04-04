@@ -11,28 +11,28 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
 
   @ViewChild('myCanvas') canvasRef: ElementRef;
 
-  private xSize: number = 1000;
-  private ySize: number = 800;
+  xSize: number = 1000;
+  ySize: number = 800;
 
-  protected running: boolean = false;
+  running: boolean = false;
 
-  private stepLength = 2;
-  private stayCloneAfter = 7;
-  private cycleFrameCounter = 0;
-  private timerDelay = 20;
-  protected lifeCounter: number = 0;
-  protected snakeElements: SnakeElement[] = [];
+  stepLength = 2;
+  stayCloneAfter = 7;
+  cycleFrameCounter = 0;
+  timerDelay = 20;
+  lifeCounter: number = 0;
+  snakeElements: SnakeElement[] = [];
   snakeLength: number = 20;
 
-  protected mouseDown = false;
-  protected mouseEvent: MouseEvent;
-  protected mx = 0;
-  protected my = 0;
+  mouseDown = false;
+  mouseEvent: MouseEvent;
+  mx = 0;
+  my = 0;
 
-  protected dx = 0;
-  protected dy = 0;
+  dx = 0;
+  dy = 0;
 
-  private gameTimer: Subscription;
+  gameTimer: Subscription;
 
   constructor () {
   }
@@ -149,12 +149,6 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
 
   ngOnDestroy (): void {
     this.gameTimer.unsubscribe();
-  }
-
-  protected mouseJson(): string {
-
-    return (this.mouseEvent == null) ? 'null' : JSON.stringify(this.mouseEvent)
-
   }
 
 }
