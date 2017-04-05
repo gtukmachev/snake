@@ -3,6 +3,7 @@ import {Observable, Subscription} from "rxjs";
 import {Snake} from "./game-objects/snake";
 import {GameField} from "./game-objects/game-field";
 import {BackGround} from "./game-objects/back-ground";
+import {FoodManager} from "./game-objects/food/food-manager";
 
 @Component({
   selector: 'app-snake-canvas',
@@ -21,6 +22,7 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   gameField: GameField;
   backGround: BackGround;
   snake: Snake;
+  foodManager: FoodManager;
 
   snakeLength: number = 20;
   timerDelay = 20;
@@ -35,10 +37,12 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
     const ctx: CanvasRenderingContext2D = this.canvasRef.nativeElement.getContext('2d');
 
     this.gameField = new GameField(ctx, this.xSize, this.ySize);
-    this.backGround = new BackGround(this.gameField);
-    this.snake = new Snake(this.gameField, this.xSize / 2, this.ySize / 2 );
 
-    this.gameField.add( this.backGround, this.snake );
+    this.backGround  = new  BackGround(this.gameField);
+    this.snake       = new       Snake(this.gameField, this.xSize / 2, this.ySize / 2 );
+    this.foodManager = new FoodManager(this.gameField);
+
+    this.gameField.add( this.foodManager, this.backGround, this.snake );
 
   }
 

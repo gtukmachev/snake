@@ -1,5 +1,5 @@
-import {GameObject} from "./game-object";
-import {GameField} from "./game-field";
+import {GameObject} from "../game-object";
+import {GameField} from "../game-field";
 export class Food extends GameObject {
   public isDrawable: boolean = true;
 
@@ -15,7 +15,7 @@ export class Food extends GameObject {
                  | CanvasGradient
                  | CanvasPattern) {
     super(field, x, y);
-    this._size = size;
+    this.size = size;
     this.color = color;
   }
 
