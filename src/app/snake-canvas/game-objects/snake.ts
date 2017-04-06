@@ -13,6 +13,7 @@ export class Snake extends GameObject {
 
   speed: number = 2;      // movement speed (in pixels) of snake head by a turn
   speedVector: Position = new Position(1,0);
+  directionVector: Position = new Position(1,0);
   currentLength: number = 10;
 
   stayCloneAfter = 7;
@@ -37,8 +38,11 @@ export class Snake extends GameObject {
 
     const vectorLen = Math.sqrt( vectorX*vectorX + vectorY*vectorY );
 
-    this.speedVector.x = ( vectorX / vectorLen ) * this.speed;
-    this.speedVector.y = ( vectorY / vectorLen ) * this.speed;
+    this.directionVector.x = ( vectorX / vectorLen );
+    this.directionVector.y = ( vectorY / vectorLen );
+
+    this.speedVector.x = this.directionVector.x * this.speed;
+    this.speedVector.y = this.directionVector.y * this.speed;
 
   }
 
@@ -51,6 +55,31 @@ export class Snake extends GameObject {
 
     const head = this.snakeElements[this.snakeElements.length - 1];
     this.drawCircle(head.position.x, head.position.y, this.snakeFat, this.headColor);
+
+    const eyeRadius = 5;
+    const backOffset = eyeRadius / 3;
+    const eyeRadius1= eyeRadius / 2;
+    const angle = Math.PI / 7;
+
+    const f = this.field.ctx;
+    f.save();
+    f.translate(head.position.x, head.position.y);
+    const centerEye = this.snakeFat-backOffset;
+    const centerEye1 = centerEye + eyeRadius - eyeRadius1;
+    const eyeX = this.directionVector.x * centerEye;
+    const eyeY = this.directionVector.y * centerEye;
+    const eyeX1 = this.directionVector.x * centerEye1;
+    const eyeY1 = this.directionVector.y * centerEye1;
+
+
+    f.rotate(angle);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    f.rotate(-2 * angle);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    f.restore();
+    //f.fi
 
   }
 

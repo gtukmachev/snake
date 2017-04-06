@@ -27,6 +27,14 @@ export abstract class GameObject {
     this.field.ctx.fill();
   }
 
+  public strokeCircle (x: number, y: number, radius: number, strokeStyle: string | CanvasGradient | CanvasPattern) {
+    this.field.ctx.beginPath();
+    this.field.ctx.lineWidth = 1;
+    this.field.ctx.strokeStyle = strokeStyle;
+    this.field.ctx.arc(x, y, radius, 0, Math.PI * 2);
+    this.field.ctx.stroke();
+  }
+
   public moveTo(x: number, y: number) {
     this.position.x = x;
     this.position.y = y;

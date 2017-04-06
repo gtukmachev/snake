@@ -1,0 +1,10 @@
+.gameField {
+  z-index: 10;
+  position: absolute;
+  left: 0;
+  top: 2em;
+  border: 1px solid #3a599a;
+}
+.panel {
+  z-index: 9;
+}
