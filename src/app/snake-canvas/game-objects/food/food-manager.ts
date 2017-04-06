@@ -14,8 +14,6 @@ export class FoodManager extends ManagerGameObject {
   }
 
 
-
-
   beforeTurn (): void {
     const ms = new Date().getTime();
     if ((this.lastMsAdded + 3000) < ms ) {
