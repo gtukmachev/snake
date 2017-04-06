@@ -30,6 +30,11 @@ export class Snake extends GameObject {
     this.snakeElements = [this.head];
   }
 
+  increase(onLength: number):void {
+    this.lifeCounter -= onLength;
+    this.currentLength += onLength;
+  }
+
   setDirection(x: number, y: number): void {
     const head = this.snakeElements[this.snakeElements.length - 1];
 
@@ -114,7 +119,7 @@ export class Snake extends GameObject {
 
 }
 
-class SnakeElement extends GameObject{
+export class SnakeElement extends GameObject{
   public isDrawable: boolean = false;
   public whenDie: number;
 

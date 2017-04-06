@@ -8,5 +8,10 @@ export class Position {
     this.y = y;
   }
 
+  public distanceTo(p: Position): number {
+    const dx = p.x - this.x;
+    const dy = p.y - this.y;
+    return Math.sqrt(dx*dx + dy*dy);
+  }
 
 }

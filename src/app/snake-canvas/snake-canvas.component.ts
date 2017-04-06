@@ -42,7 +42,9 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
     this.snake       = new       Snake(this.gameField, this.xSize / 2, this.ySize / 2 );
     this.foodManager = new FoodManager(this.gameField);
 
-    this.gameField.add( this.foodManager, this.backGround, this.snake );
+    this.gameField.add( this.foodManager);
+    this.gameField.add( this.backGround );
+    this.gameField.add( this.snake      );
 
   }
 

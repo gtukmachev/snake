@@ -6,9 +6,7 @@ import {TimeCounter} from "../time-counter";
 
 export class FoodManager extends ManagerGameObject {
 
-  foodCount: number = 0;
-
-  timeCounter: TimeCounter = new TimeCounter(3000); // for every 3 sec
+  timeCounter: TimeCounter = new TimeCounter(2000); // for every 3 sec
 
   constructor (field: GameField) {
     super(field);
@@ -18,29 +16,24 @@ export class FoodManager extends ManagerGameObject {
   beforeTurn (): void {
     if (this.timeCounter.isItTime()) {
       this.timeCounter.fixLastChecking();
-      if (this.foodCount <= 3) this.makeFood();
+      if (this.field.foods.length <= 300) this.makeFood();
     }
   }
 
   makeFood(): void {
-
     const food = new Food(
       this.field,
       Math.round(Math.random() * (this.field.size.x - 20)) + 10,
       Math.round(Math.random() * (this.field.size.y - 20)) + 10,
-      Math.round(Math.random() * 8) + 5,
-      '#c277ff'
+      Math.round(Math.random() * 2) + 1,
+      '#38ff6c',
+      '#ff9575'
     );
 
     this.field.add(food);
 
-    this.foodCount++;
-
   }
 
-  foodWasRemoved(): void {
-    this.foodCount--;
-  }
 
 
 }

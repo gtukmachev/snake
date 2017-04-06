@@ -8,3 +8,9 @@
 .panel {
   z-index: 9;
 }
+
+.inf {
+  position: absolute;
+  left: 990px;
+  top: 2em;
+}

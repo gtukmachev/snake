@@ -3,3 +3,11 @@
   <button (click)="changeRun()">{{running ? 'Stop' : 'Run'}}</button> : {{running ? 'game is on' : 'game is on pause'}}
   Food count: {{foodManager.foodCount}}
 </div>
+
+<div class="inf">
+  <ul>
+    <li *ngFor="let s of gameField.snakes; let i = index;">
+      {{i+1}}: {{s.currentLength}} ({{s.snakeElements.length}})
+    </li>
+  </ul>
+</div>
