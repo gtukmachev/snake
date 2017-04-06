@@ -2,20 +2,20 @@ export class TimeCounter {
 
   lastActionTimeMillis: number = 0; // in miliseconds
   actionPeriodMillis: number = 0; // in miliseconds
-  checkingMoment: number = 0;
+  lastCheckingMoment: number = 0;
 
-  constructor (lastActionTimeMillis: number, actionPeriodMillis: number) {
-    this.lastActionTimeMillis = lastActionTimeMillis;
+  constructor (actionPeriodMillis: number) {
+    this.lastActionTimeMillis = 0;
     this.actionPeriodMillis = actionPeriodMillis;
   }
 
   public isItTime(): boolean {
-    this.checkingMoment = new Date().getTime();
-    return (this.lastActionTimeMillis + this.actionPeriodMillis) < this.checkingMoment;
+    this.lastCheckingMoment = new Date().getTime();
+    return (this.lastActionTimeMillis + this.actionPeriodMillis) < this.lastCheckingMoment;
   }
 
   public fixLastChecking() {
-    this.lastActionTimeMillis = this.checkingMoment;
+    this.lastActionTimeMillis = this.lastCheckingMoment;
   }
 
 }
