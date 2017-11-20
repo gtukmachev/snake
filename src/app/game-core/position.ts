@@ -1,7 +1,7 @@
 export class Position {
 
-  public x: number = 0;
-  public y: number = 0;
+  public x = 0;
+  public y = 0;
 
   constructor (x: number, y: number) {
     this.x = x;
@@ -11,7 +11,7 @@ export class Position {
   public distanceTo(p: Position): number {
     const dx = p.x - this.x;
     const dy = p.y - this.y;
-    return Math.sqrt(dx*dx + dy*dy);
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
 }

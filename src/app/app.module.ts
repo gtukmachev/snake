@@ -4,19 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { SnakeCanvasComponent } from './snake-canvas/snake-canvas.component';
+import { SnakeModule } from './snake/snake.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SnakeCanvasComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    SnakeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

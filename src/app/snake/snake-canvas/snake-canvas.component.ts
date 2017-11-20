@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {Snake} from "./game-objects/snake";
-import {GameField} from "./game-objects/game-field";
+import {SnakeGameField} from "./game-objects/snake-game-field";
 import {BackGround} from "./game-objects/back-ground";
 import {FoodManager} from "./game-objects/food/food-manager";
 
@@ -19,7 +19,7 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
 
   running: boolean = false;
 
-  gameField: GameField;
+  gameField: SnakeGameField;
   backGround: BackGround;
   snake: Snake;
   foodManager: FoodManager;
@@ -36,7 +36,7 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   ngOnInit () {
     const ctx: CanvasRenderingContext2D = this.canvasRef.nativeElement.getContext('2d');
 
-    this.gameField = new GameField(ctx, this.xSize, this.ySize);
+    this.gameField = new SnakeGameField(ctx, this.xSize, this.ySize);
 
     this.backGround  = new  BackGround(this.gameField);
     this.snake       = new       Snake(this.gameField, this.xSize / 2, this.ySize / 2 );

@@ -1,12 +1,11 @@
-import {GameObject} from "./game-object";
-import {GameField} from "./game-field";
+import {GameObject} from '../../../game-core/game-object';
+import {SnakeGameField} from './snake-game-field';
 
-export class BackGround extends GameObject{
+export class BackGround extends GameObject {
 
   public isDrawable: boolean = true;
 
-
-  constructor (field: GameField) {
+  constructor (field: SnakeGameField) {
     super(field, 0, 0);
   }
 

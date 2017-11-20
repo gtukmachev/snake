@@ -1,5 +1,5 @@
-import {GameField} from "../game-field";
-import {ManagerGameObject} from "../manager-game-object";
+import {SnakeGameField} from "../snake-game-field";
+import {ManagerGameObject} from "../../../../game-core/manager-game-object";
 import {Food} from "./food";
 import {TimeCounter} from "../time-counter";
 
@@ -7,8 +7,9 @@ import {TimeCounter} from "../time-counter";
 export class FoodManager extends ManagerGameObject {
 
   timeCounter: TimeCounter = new TimeCounter(2000); // for every 3 sec
+  public field: SnakeGameField;
 
-  constructor (field: GameField) {
+  constructor (field: SnakeGameField) {
     super(field);
   }
 

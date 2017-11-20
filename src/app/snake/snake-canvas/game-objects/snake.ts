@@ -1,6 +1,7 @@
-import {GameObject} from "./game-object";
-import {Position} from "./position";
-import {GameField} from "./game-field";
+import {SnakeGameField} from './snake-game-field';
+import {GameObject} from '../../../game-core/game-object';
+import {Position} from '../../../game-core/position';
+import {GameField} from '../../../game-core/game-field';
 
 export class Snake extends GameObject {
   public isDrawable: boolean = true;
@@ -22,7 +23,7 @@ export class Snake extends GameObject {
 
   head: SnakeElement;
 
-  constructor (field: GameField, x: number, y: number) {
+  constructor (field: SnakeGameField, x: number, y: number) {
     super(field, x, y);
     this.lifeCounter = 0;
     this.cycleFrameCounter = 0;

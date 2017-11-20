@@ -1,8 +1,8 @@
-import {Position} from "./position";
-import {GameField} from "./game-field";
+import {Position} from './position';
+import {GameField} from './game-field';
 export abstract class GameObject {
 
-  abstract isDrawable: boolean = true;
+  abstract isDrawable = true;
 
   public field: GameField;
   public position: Position;
@@ -15,7 +15,7 @@ export abstract class GameObject {
 
   constructor (field: GameField, x: number, y: number) {
     this.field = field;
-    this.position = new Position(x,y);
+    this.position = new Position(x, y);
   }
 
 
@@ -42,8 +42,8 @@ export abstract class GameObject {
   }
 
   public moveToSafe(positionX: number, positionY: number) {
-    let x = positionX; if (x < 0) x = 0; if (x > this.field.size.x) x = this.field.size.x;
-    let y = positionY; if (y < 0) y = 0; if (y > this.field.size.y) y = this.field.size.y;
+    let x = positionX; if (x < 0) { x = 0; } if (x > this.field.size.x) { x = this.field.size.x; }
+    let y = positionY; if (y < 0) { y = 0; } if (y > this.field.size.y) { y = this.field.size.y; }
     this.position.x = x;
     this.position.y = y;
 

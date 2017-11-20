@@ -1,12 +1,14 @@
-import {GameObject} from "../game-object";
-import {GameField} from "../game-field";
+import {GameObject} from "../../../../game-core/game-object";
+import {SnakeGameField} from "../snake-game-field";
 import {TimeCounter} from "../time-counter";
 import {Snake, SnakeElement} from "../snake";
-export class Food extends GameObject {
-  public isDrawable: boolean = true;
 
+export class Food extends GameObject {
   private static sizeKoef = 3;
   private static incKoef = 1.1; // it have to be > 1 !!!!!
+
+  public isDrawable: boolean = true;
+  public field: SnakeGameField;
 
   private _size: number = 5;
   private eatPerTern = 1;
@@ -25,7 +27,7 @@ export class Food extends GameObject {
 
   public active: boolean = false;
 
-  constructor (field: GameField, x: number, y: number, size: number, color: string, activeColor: string) {
+  constructor (field: SnakeGameField, x: number, y: number, size: number, color: string, activeColor: string) {
     super(field, x, y);
     this.color = color;
     this.activeColor = activeColor;
@@ -35,7 +37,7 @@ export class Food extends GameObject {
   draw (): void {
 
     this.prepareForDraw();
-    //this.drawCircle( this.position.x, this.position.y, this.sizeForDraw, this.color);
+    // this.drawCircle( this.position.x, this.position.y, this.sizeForDraw, this.color);
     this.drawCircle( this.position.x, this.position.y, this.sizeForDraw + this.addSize, this.radialGradient);
 
   }
@@ -45,7 +47,7 @@ export class Food extends GameObject {
     if (this._size <= 0) { return; }
 
     if (this.timeCounter.isItTime()) {
-      this.timeCounter.fixLastChecking()
+      this.timeCounter.fixLastChecking();
       this.addSize += this.incSize;
       if ( Math.abs(this.addSize) > this.maxAdd) {
         this.incSize = (-1) * this.incSize;
