@@ -1,6 +1,6 @@
 import {GameObject} from './game-object';
 import {Position} from './position';
-export class GameField {
+export class Game {
 
   public ctx: CanvasRenderingContext2D;
   public gameObjects: GameObject[] = [];

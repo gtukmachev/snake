@@ -1,9 +1,9 @@
 import {GameObject} from '../../../game-core/game-object';
-import {GameField} from '../../../game-core/game-field';
+import {Game} from '../../../game-core/game';
 import {Snake} from './snake';
 import {Food} from './food/food';
 
-export class SnakeGameField extends GameField {
+export class SnakeGame extends Game {
 
   public snakes: Snake[] = [];
   public foods: Food[] = [];

@@ -1,5 +1,5 @@
 import {GameObject} from "../../../../game-core/game-object";
-import {SnakeGameField} from "../snake-game-field";
+import {SnakeGame} from "../snake-game";
 import {TimeCounter} from "../time-counter";
 import {Snake, SnakeElement} from "../snake";
 
@@ -8,7 +8,7 @@ export class Food extends GameObject {
   private static incKoef = 1.1; // it have to be > 1 !!!!!
 
   public isDrawable: boolean = true;
-  public field: SnakeGameField;
+  public field: SnakeGame;
 
   private _size: number = 5;
   private eatPerTern = 1;
@@ -27,7 +27,7 @@ export class Food extends GameObject {
 
   public active: boolean = false;
 
-  constructor (field: SnakeGameField, x: number, y: number, size: number, color: string, activeColor: string) {
+  constructor (field: SnakeGame, x: number, y: number, size: number, color: string, activeColor: string) {
     super(field, x, y);
     this.color = color;
     this.activeColor = activeColor;
@@ -73,7 +73,7 @@ export class Food extends GameObject {
 
       snakesTouched.forEach( snake => {
         if (s > 0) {
-          snake.increase(this.eatPerTern)
+          snake.increase(this.eatPerTern);
           s -= this.eatPerTern;
         }
       });

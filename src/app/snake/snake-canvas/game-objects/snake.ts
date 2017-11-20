@@ -1,7 +1,7 @@
-import {SnakeGameField} from './snake-game-field';
+import {SnakeGame} from './snake-game';
 import {GameObject} from '../../../game-core/game-object';
 import {Position} from '../../../game-core/position';
-import {GameField} from '../../../game-core/game-field';
+import {Game} from '../../../game-core/game';
 
 export class Snake extends GameObject {
   public isDrawable: boolean = true;
@@ -10,7 +10,8 @@ export class Snake extends GameObject {
 
   snakeFat: number = 15;
   headColor: string | CanvasGradient | CanvasPattern = '#3a599a';
-  bodyColor: string | CanvasGradient | CanvasPattern = '#29b396';
+  bodyColors: Array<string> = ['#29b396', '#29c3a6', '#2cdabd', '#2debce', '#2effe1',
+                               '#2debce', '#2cdabd', '#29c3a6' ];
 
   speed: number = 2;      // movement speed (in pixels) of snake head by a turn
   speedVector: Position = new Position(1,0);
@@ -23,7 +24,7 @@ export class Snake extends GameObject {
 
   head: SnakeElement;
 
-  constructor (field: SnakeGameField, x: number, y: number) {
+  constructor (field: SnakeGame, x: number, y: number) {
     super(field, x, y);
     this.lifeCounter = 0;
     this.cycleFrameCounter = 0;
@@ -34,6 +35,7 @@ export class Snake extends GameObject {
   increase(onLength: number):void {
     this.lifeCounter -= onLength;
     this.currentLength += onLength;
+    this.snakeFat = 14 + this.currentLength / 10;
   }
 
   setDirection(x: number, y: number): void {
@@ -56,15 +58,16 @@ export class Snake extends GameObject {
 
     for (let i = 0; i < this.snakeElements.length - 1; i++) {
       const element = this.snakeElements[i];
-      this.drawCircle(element.position.x, element.position.y, this.snakeFat, this.bodyColor);
+      this.drawCircle(element.position.x, element.position.y, this.snakeFat, this.bodyColors[ i %  this.bodyColors.length ]);
+      this.strokeCircle(element.position.x, element.position.y, this.snakeFat, this.headColor);
     }
 
     const head = this.snakeElements[this.snakeElements.length - 1];
     this.drawCircle(head.position.x, head.position.y, this.snakeFat, this.headColor);
 
-    const eyeRadius = 5;
+    const eyeRadius = this.snakeFat / 3;
     const backOffset = eyeRadius / 3;
-    const eyeRadius1= eyeRadius / 2;
+    const eyeRadius1 = eyeRadius / 2;
     const angle = Math.PI / 7;
 
     const f = this.field.ctx;
@@ -125,7 +128,7 @@ export class SnakeElement extends GameObject{
   public whenDie: number;
 
 
-  constructor (field: GameField, x: number, y: number, whenDie: number) {
+  constructor (field: Game, x: number, y: number, whenDie: number) {
     super(field, x, y);
     this.whenDie = whenDie;
   }

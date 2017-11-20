@@ -1,10 +1,10 @@
 import {Position} from './position';
-import {GameField} from './game-field';
+import {Game} from './game';
 export abstract class GameObject {
 
   abstract isDrawable = true;
 
-  public field: GameField;
+  public field: Game;
   public position: Position;
 
   abstract draw(): void;
@@ -13,7 +13,7 @@ export abstract class GameObject {
   abstract turn(): void;
   abstract afterTurn(): void;
 
-  constructor (field: GameField, x: number, y: number) {
+  constructor (field: Game, x: number, y: number) {
     this.field = field;
     this.position = new Position(x, y);
   }

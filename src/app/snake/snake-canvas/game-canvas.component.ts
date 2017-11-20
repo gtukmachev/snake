@@ -1,31 +1,32 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {Snake} from "./game-objects/snake";
-import {SnakeGameField} from "./game-objects/snake-game-field";
-import {BackGround} from "./game-objects/back-ground";
-import {FoodManager} from "./game-objects/food/food-manager";
+import {Observable, Subscription} from 'rxjs';
+import {Snake} from './game-objects/snake';
+import {SnakeGame} from './game-objects/snake-game';
+import {BackGround} from './game-objects/back-ground';
+import {FoodManager} from './game-objects/food/food-manager';
+import {Game} from '../../game-core/game';
 
 @Component({
-  selector: 'app-snake-canvas',
-  templateUrl: './snake-canvas.component.html',
-  styleUrls: ['./snake-canvas.component.css']
+  selector: 'app-game-canvas',
+  templateUrl: './game-canvas.component.html',
+  styleUrls: ['./game-canvas.component.css']
 })
-export class SnakeCanvasComponent implements OnInit, OnDestroy {
+export class GameCanvasComponent implements OnInit, OnDestroy {
 
   @ViewChild('myCanvas') canvasRef: ElementRef;
 
-  xSize: number = 1000;
-  ySize: number = 800;
+  xSize: number = 960;
+  ySize: number = 540;
 
   running: boolean = false;
 
-  gameField: SnakeGameField;
+  snakeGame: SnakeGame;
   backGround: BackGround;
   snake: Snake;
   foodManager: FoodManager;
 
   snakeLength: number = 20;
-  timerDelay = 20;
+  gameTimeFrame = 10;
 
 
   gameTimer: Subscription;
@@ -36,15 +37,20 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
   ngOnInit () {
     const ctx: CanvasRenderingContext2D = this.canvasRef.nativeElement.getContext('2d');
 
-    this.gameField = new SnakeGameField(ctx, this.xSize, this.ySize);
+    console.log(this.canvasRef.nativeElement);
 
-    this.backGround  = new  BackGround(this.gameField);
-    this.snake       = new       Snake(this.gameField, this.xSize / 2, this.ySize / 2 );
-    this.foodManager = new FoodManager(this.gameField);
+    this.xSize = this.canvasRef.nativeElement.width;
+    this.ySize = this.canvasRef.nativeElement.height;
 
-    this.gameField.add( this.foodManager);
-    this.gameField.add( this.backGround );
-    this.gameField.add( this.snake      );
+    this.snakeGame = new SnakeGame(ctx, this.xSize, this.ySize);
+
+    this.backGround  = new  BackGround(this.snakeGame);
+    this.snake       = new       Snake(this.snakeGame, this.xSize / 2, this.ySize / 2 );
+    this.foodManager = new FoodManager(this.snakeGame);
+
+    this.snakeGame.add( this.foodManager);
+    this.snakeGame.add( this.backGround );
+    this.snakeGame.add( this.snake      );
 
   }
 
@@ -63,19 +69,19 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
 
   private gameStep(): void {
     if (!this.running) { return; }
-    this.gameField.gameActionTurn();
+    this.snakeGame.gameActionTurn();
   }
 
   private paint(): void {
     if (!this.running) return;
-    this.gameField.gameFrameDraw();
+    this.snakeGame.gameFrameDraw();
     requestAnimationFrame(() => this.paint());
   }
 
   public startGame(): void {
     if (this.running) return;
 
-    this.gameTimer = Observable.timer(500, this.timerDelay)
+    this.gameTimer = Observable.timer(500, this.gameTimeFrame)
       .subscribe(
         () => this.gameStep()
       );
@@ -90,7 +96,7 @@ export class SnakeCanvasComponent implements OnInit, OnDestroy {
 
   }
 
-  public changeRun () {
+  public toggleStartPause () {
       if (this.running) { this.pauseGame(); }
                    else { this.startGame(); }
   }

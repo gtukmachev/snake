@@ -1,10 +1,10 @@
 import {GameObject} from "./game-object";
-import {GameField} from "./game-field";
+import {Game} from "./game";
 export class ManagerGameObject extends GameObject {
 
   public isDrawable: boolean = false;
 
-  constructor (field: GameField) {
+  constructor (field: Game) {
     super(field, 0, 0);
   }
 

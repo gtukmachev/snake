@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SnakeCanvasComponent } from './snake-canvas/snake-canvas.component';
+import { GameCanvasComponent } from './snake-canvas/game-canvas.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   exports: [
-    SnakeCanvasComponent
+    GameCanvasComponent
   ],
   declarations: [
-    SnakeCanvasComponent
+    GameCanvasComponent
   ]
 })
 export class SnakeModule { }
