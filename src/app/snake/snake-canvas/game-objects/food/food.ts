@@ -90,7 +90,7 @@ export class Food extends GameObject {
   }
 
   isInZone(snake: Snake): boolean {
-    const distance = this.position.distanceTo( snake.head.position );
+    const distance = this.position.distanceTo( snake.position );
     return distance < ( this.sizeForDraw + this.addSize + snake.snakeFat );
   }
 

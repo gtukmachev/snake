@@ -37,6 +37,37 @@ export abstract class GameObject {
 
   }
 
+  public moveTo(x: number, y: number) {
+    this.position.x = x;
+    this.position.y = y;
+    // todo: add implementation for grid indexing objects
+  }
+
+  public moveToSafe(x: number, y: number) {
+    moveTo(x, y);
+    this.moveReturnOnField();
+    // todo: add implementation for grid indexing objects
+  }
+
+  public moveForward() {
+    this.position.x += this.speedVector.x;
+    this.position.y += this.speedVector.y;
+    // todo: add implementation for grid indexing objects
+  }
+
+  public moveForwardSafe() {
+    this.position.x += this.speedVector.x;
+    this.position.y += this.speedVector.y;
+    this.moveReturnOnField();
+    // todo: add implementation for grid indexing objects
+  }
+
+  public moveReturnOnField() {
+    if (this.position.x < 0) {this.position.x = 0; } else {if (this.position.x > this.field.size.x) { this.position.x = this.field.size.x; }}
+    if (this.position.y < 0) {this.position.y = 0; } else {if (this.position.y > this.field.size.y) { this.position.y = this.field.size.y; }}
+    // todo: add implementation for grid indexing objects
+  }
+
   // draw helper methods
   public drawCircle (x: number, y: number, radius: number, fillStyle: string | CanvasGradient | CanvasPattern) {
     this.field.ctx.beginPath();
@@ -51,21 +82,6 @@ export abstract class GameObject {
     this.field.ctx.strokeStyle = strokeStyle;
     this.field.ctx.arc(x, y, radius, 0, Math.PI * 2);
     this.field.ctx.stroke();
-  }
-
-  public moveTo(x: number, y: number) {
-    this.position.x = x;
-    this.position.y = y;
-    // todo: add implementation for grid indexing objects
-  }
-
-  public moveToSafe(positionX: number, positionY: number) {
-    let x = positionX; if (x < 0) { x = 0; } if (x > this.field.size.x) { x = this.field.size.x; }
-    let y = positionY; if (y < 0) { y = 0; } if (y > this.field.size.y) { y = this.field.size.y; }
-    this.position.x = x;
-    this.position.y = y;
-
-    // todo: add implementation for grid indexing objects
   }
 
 }
