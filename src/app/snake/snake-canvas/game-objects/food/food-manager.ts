@@ -30,9 +30,20 @@ export class FoodManager extends ManagerGameObject {
       this.field,
       Math.round(Math.random() * (this.field.size.x - 20)) + 10,
       Math.round(Math.random() * (this.field.size.y - 20)) + 10,
-      Math.round(Math.random() * 2) + 1,
-      '#38ff6c',
-      '#ff9575'
+      Math.round(Math.random() * 9) + 1,
+      ['#38ff6c',
+      '#57ffb8',
+      '#61fdff',
+      '#66bdff',
+      '#6a8dff',
+      '#9671ff',
+      '#c670ff',
+      '#ff67f0',
+      '#ff4599',
+      '#ff3c2f' ]
+      ,
+      '#fffcf6'
+
     );
 
     this.field.add(food);

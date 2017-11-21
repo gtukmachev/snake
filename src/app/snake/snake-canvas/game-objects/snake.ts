@@ -96,7 +96,7 @@ export class Snake extends GameObject {
       const elp = this.snakePath[0];
       this.drawCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ length %  this.bodyColors.length ]);
       length--;
-      this.strokeCircle(elp.x, elp.y, this.snakeFat, this.headColor);
+      this.strokeCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ]);
     }
 
     for (let i = first;
@@ -105,7 +105,7 @@ export class Snake extends GameObject {
       const elp = this.snakePath[i];
       this.drawCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ length %  this.bodyColors.length ]);
       length--;
-      this.strokeCircle(elp.x, elp.y, this.snakeFat, this.headColor);
+      this.strokeCircle(elp.x, elp.y, this.snakeFat,  this.bodyColors[ (length + 30)  %  this.bodyColors.length ]);
     }
 
     const hp = this.p;

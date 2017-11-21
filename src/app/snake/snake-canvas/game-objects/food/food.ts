@@ -15,7 +15,7 @@ export class Food extends GameObject {
 
 
   private sizeForDraw: number;
-  private color: string;
+  private color: Array<string>;
   private activeColor: string;
   private radialGradient: CanvasGradient;
 
@@ -27,7 +27,7 @@ export class Food extends GameObject {
 
   public active: boolean = false;
 
-  constructor (field: SnakeGame, x: number, y: number, size: number, color: string, activeColor: string) {
+  constructor (field: SnakeGame, x: number, y: number, size: number, color:  Array<string>, activeColor: string) {
     super(field, x, y);
     this.color = color;
     this.activeColor = activeColor;
@@ -109,7 +109,9 @@ export class Food extends GameObject {
       this.p.x, this.p.y, (this.sizeForDraw + this.addSize) / 3,
       this.p.x, this.p.y, (this.sizeForDraw + this.addSize)    ,
     );
-    this.radialGradient.addColorStop(0, this.active ? this.activeColor : this.color);
+    // this.radialGradient.addColorStop(0, this.active ? this.activeColor : this.color[ this._size % this.color.length ]
+    this.radialGradient.addColorStop(0, this.color[ this._size % this.color.length ]
+    );
     this.radialGradient.addColorStop(1, 'transparent');
   }
 }
