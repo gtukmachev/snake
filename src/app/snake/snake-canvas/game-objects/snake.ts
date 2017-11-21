@@ -13,9 +13,6 @@ export class Snake extends GameObject {
   bodyColors: Array<string> = ['#29b396', '#29c3a6', '#2cdabd', '#2debce', '#2effe1',
                                '#2debce', '#2cdabd', '#29c3a6' ];
 
-  speed: number = 2;      // movement speed (in pixels) of snake head by a turn
-  speedVector: Pos = new Pos(1,0);
-  directionVector: Pos = new Pos(1,0);
   currentLength: number = 10;
 
   stayCloneAfter = 7;
@@ -32,26 +29,10 @@ export class Snake extends GameObject {
     this.snakeElements = [this.head];
   }
 
-  increase(onLength: number):void {
+  increaseSnakeLength(onLength: number):void {
     this.lifeCounter -= onLength;
     this.currentLength += onLength;
     this.snakeFat = 14 + this.currentLength / 10;
-  }
-
-  setDirection(x: number, y: number): void {
-    const head = this.snakeElements[this.snakeElements.length - 1];
-
-    const vectorX = x - head.position.x;
-    const vectorY = y - head.position.y;
-
-    const vectorLen = Math.sqrt( vectorX*vectorX + vectorY*vectorY );
-
-    this.directionVector.x = ( vectorX / vectorLen );
-    this.directionVector.y = ( vectorY / vectorLen );
-
-    this.speedVector.x = this.directionVector.x * this.speed;
-    this.speedVector.y = this.directionVector.y * this.speed;
-
   }
 
   draw () {

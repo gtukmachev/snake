@@ -72,7 +72,7 @@ export class Food extends GameObject {
 
       snakesTouched.forEach( snake => {
         if (s > 0) {
-          snake.increase(this.eatPerTern);
+          snake.increaseSnakeLength(this.eatPerTern);
           s -= this.eatPerTern;
         }
       });

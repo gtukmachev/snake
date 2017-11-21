@@ -5,7 +5,11 @@ export abstract class GameObject {
   abstract isDrawable = true;
 
   public field: Game;
+
   public position: Pos;
+  public speed: number = 2;                     // movement speed (in pixels)
+  public speedVector: Pos = new Pos(1,0);       // movement vector speed (length = speed )
+  public directionVector: Pos = new Pos(1,0);   // direction vector (length = 1)
 
   abstract draw(): void;
 
@@ -18,6 +22,20 @@ export abstract class GameObject {
     this.position = new Pos(x, y);
   }
 
+  // movement helper methods
+  setDirection(x: number, y: number): void {
+    const vectorX = x - this.position.x;
+    const vectorY = y - this.position.y;
+
+    const vectorLen = Math.sqrt( vectorX*vectorX + vectorY*vectorY );
+
+    this.directionVector.x = ( vectorX / vectorLen );
+    this.directionVector.y = ( vectorY / vectorLen );
+
+    this.speedVector.x = this.directionVector.x * this.speed;
+    this.speedVector.y = this.directionVector.y * this.speed;
+
+  }
 
   // draw helper methods
   public drawCircle (x: number, y: number, radius: number, fillStyle: string | CanvasGradient | CanvasPattern) {
