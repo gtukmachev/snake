@@ -4,6 +4,7 @@ import {Snake} from './game-objects/snake';
 import {SnakeGame} from './game-objects/snake-game';
 import {SimpleBackGround} from '../../game-core/simple-back-ground';
 import {FoodManager} from './game-objects/food/food-manager';
+import {TimeCounter} from "../../game-core/time-counter";
 
 @Component({
   selector: 'app-game-canvas',
@@ -19,12 +20,20 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
 
   running: boolean = false;
 
+  secondsTimerCounter = new TimeCounter(1000); // every second
+  framesCounter = 0;
+  turnsCounter = 0;
+
+  framesPerSecond = 0;
+  turnsPerSecond = 0;
+  frameDuration = 0;
+
   snakeGame: SnakeGame;
   backGround: SimpleBackGround;
   snake: Snake;
   foodManager: FoodManager;
 
-  gameTimeFrame = 10;
+  gameTimeFrame = 1;
 
 
   gameTimer: Subscription;
@@ -50,10 +59,26 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
     this.snakeGame.add( this.backGround );
     this.snakeGame.add( this.snake      );
 
+
+    this.secondsTimerCounter.isItTime();
+    this.secondsTimerCounter.fixLastChecking();
+    Observable.timer(1000, 1000).subscribe(() => {
+      if (this.secondsTimerCounter.isItTime()) {
+        this.frameDuration = this.secondsTimerCounter.lastDuration;
+
+        this.framesPerSecond = this.framesCounter;
+        this.framesCounter = 0;
+
+        this.turnsPerSecond = this.turnsCounter;
+        this.turnsCounter = 0;
+
+
+      }
+    });
   }
 
   private onMouse(event: MouseEvent) {
-    if (!this.running) return;
+    if (!this.running) { return; }
     this.snake.setDirection(event.layerX, event.layerY);
   }
 
@@ -68,16 +93,18 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
   private gameStep(): void {
     if (!this.running) { return; }
     this.snakeGame.gameActionTurn();
+    this.turnsCounter++;
   }
 
   private paint(): void {
-    if (!this.running) return;
+    if (!this.running) { return; }
     this.snakeGame.gameFrameDraw();
+    this.framesCounter ++;
     requestAnimationFrame(() => this.paint());
   }
 
   public startGame(): void {
-    if (this.running) return;
+    if (this.running) { return; }
 
     this.gameTimer = Observable.timer(500, this.gameTimeFrame)
       .subscribe(
@@ -95,8 +122,11 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
   }
 
   public toggleStartPause () {
-      if (this.running) { this.pauseGame(); }
-                   else { this.startGame(); }
+      if (this.running) {
+                this.pauseGame();
+      } else {
+                this.startGame();
+      }
   }
 
   ngOnDestroy (): void {
