@@ -41,9 +41,6 @@ export class FoodManager extends ManagerGameObject {
       '#ff67f0',
       '#ff4599',
       '#ff3c2f' ]
-      ,
-      '#fffcf6'
-
     );
 
     this.field.add(food);
