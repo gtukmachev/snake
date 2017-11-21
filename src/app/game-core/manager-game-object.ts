@@ -1,5 +1,5 @@
-import {GameObject} from "./game-object";
-import {Game} from "./game";
+import {GameObject} from './game-object';
+import {Game} from './game';
 export class ManagerGameObject extends GameObject {
 
   public isDrawable: boolean = false;

@@ -1,7 +1,7 @@
-import {SnakeGame} from "../snake-game";
-import {ManagerGameObject} from "../../../../game-core/manager-game-object";
-import {Food} from "./food";
-import {TimeCounter} from "../time-counter";
+import {SnakeGame} from '../snake-game';
+import {ManagerGameObject} from '../../../../game-core/manager-game-object';
+import {Food} from './food';
+import {TimeCounter} from '../time-counter';
 
 
 export class FoodManager extends ManagerGameObject {

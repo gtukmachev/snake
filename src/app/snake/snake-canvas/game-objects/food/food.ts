@@ -1,7 +1,7 @@
-import {GameObject} from "../../../../game-core/game-object";
-import {SnakeGame} from "../snake-game";
-import {TimeCounter} from "../time-counter";
-import {Snake, SnakeElement} from "../snake";
+import {GameObject} from '../../../../game-core/game-object';
+import {SnakeGame} from '../snake-game';
+import {TimeCounter} from '../time-counter';
+import {Snake, SnakeElement} from '../snake';
 
 export class Food extends GameObject {
   private static sizeKoef = 3;
