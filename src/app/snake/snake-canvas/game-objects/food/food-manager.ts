@@ -6,7 +6,7 @@ import {TimeCounter} from '../../../../game-core/time-counter';
 
 export class FoodManager extends ManagerGameObject {
 
-  timeCounter: TimeCounter = new TimeCounter(2000); // for every 3 sec
+  timeCounter: TimeCounter = new TimeCounter(500); // ms
   public field: SnakeGame;
 
   constructor (field: SnakeGame) {

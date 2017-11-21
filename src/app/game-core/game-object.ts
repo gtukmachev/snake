@@ -6,7 +6,7 @@ export abstract class GameObject {
 
   public field: Game;
 
-  public position: Pos;
+  public p: Pos;
   public speed: number = 2;                     // movement speed (in pixels)
   public speedVector: Pos = new Pos(1,0);       // movement vector speed (length = speed )
   public directionVector: Pos = new Pos(1,0);   // direction vector (length = 1)
@@ -19,13 +19,13 @@ export abstract class GameObject {
 
   constructor (field: Game, x: number, y: number) {
     this.field = field;
-    this.position = new Pos(x, y);
+    this.p = new Pos(x, y);
   }
 
   // movement helper methods
   setDirection(x: number, y: number): void {
-    const vectorX = x - this.position.x;
-    const vectorY = y - this.position.y;
+    const vectorX = x - this.p.x;
+    const vectorY = y - this.p.y;
 
     const vectorLen = Math.sqrt( vectorX*vectorX + vectorY*vectorY );
 
@@ -38,8 +38,8 @@ export abstract class GameObject {
   }
 
   public moveTo(x: number, y: number) {
-    this.position.x = x;
-    this.position.y = y;
+    this.p.x = x;
+    this.p.y = y;
     // todo: add implementation for grid indexing objects
   }
 
@@ -50,21 +50,21 @@ export abstract class GameObject {
   }
 
   public moveForward() {
-    this.position.x += this.speedVector.x;
-    this.position.y += this.speedVector.y;
+    this.p.x += this.speedVector.x;
+    this.p.y += this.speedVector.y;
     // todo: add implementation for grid indexing objects
   }
 
   public moveForwardSafe() {
-    this.position.x += this.speedVector.x;
-    this.position.y += this.speedVector.y;
+    this.p.x += this.speedVector.x;
+    this.p.y += this.speedVector.y;
     this.moveReturnOnField();
     // todo: add implementation for grid indexing objects
   }
 
   public moveReturnOnField() {
-    if (this.position.x < 0) {this.position.x = 0; } else {if (this.position.x > this.field.size.x) { this.position.x = this.field.size.x; }}
-    if (this.position.y < 0) {this.position.y = 0; } else {if (this.position.y > this.field.size.y) { this.position.y = this.field.size.y; }}
+    if (this.p.x < 0) {this.p.x = 0; } else {if (this.p.x > this.field.size.x) { this.p.x = this.field.size.x; }}
+    if (this.p.y < 0) {this.p.y = 0; } else {if (this.p.y > this.field.size.y) { this.p.y = this.field.size.y; }}
     // todo: add implementation for grid indexing objects
   }
 

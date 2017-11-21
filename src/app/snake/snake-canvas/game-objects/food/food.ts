@@ -37,7 +37,7 @@ export class Food extends GameObject {
   draw (): void {
 
     this.prepareForDraw();
-    this.drawCircle( this.position.x, this.position.y, this.sizeForDraw + this.addSize, this.radialGradient);
+    this.drawCircle( this.p.x, this.p.y, this.sizeForDraw + this.addSize, this.radialGradient);
 
   }
 
@@ -90,7 +90,7 @@ export class Food extends GameObject {
   }
 
   isInZone(snake: Snake): boolean {
-    const distance = this.position.distanceTo( snake.position );
+    const distance = this.p.distanceTo( snake.p );
     return distance < ( this.sizeForDraw + this.addSize + snake.snakeFat );
   }
 
@@ -106,8 +106,8 @@ export class Food extends GameObject {
 
   private prepareForDraw(): void {
     this.radialGradient  = this.field.ctx.createRadialGradient(
-      this.position.x, this.position.y, (this.sizeForDraw + this.addSize) / 3,
-      this.position.x, this.position.y, (this.sizeForDraw + this.addSize)    ,
+      this.p.x, this.p.y, (this.sizeForDraw + this.addSize) / 3,
+      this.p.x, this.p.y, (this.sizeForDraw + this.addSize)    ,
     );
     this.radialGradient.addColorStop(0, this.active ? this.activeColor : this.color);
     this.radialGradient.addColorStop(1, 'transparent');

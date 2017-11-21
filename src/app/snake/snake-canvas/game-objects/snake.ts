@@ -29,17 +29,19 @@ export class Snake extends GameObject {
   draw () {
 
 
+    const first = this.snakePath.length % this.framesPerOneLengthItem;
+    let length =  (this.snakePath.length - first) / this.framesPerOneLengthItem;
 
-
-    for (let i = this.snakePath.length % this.framesPerOneLengthItem;
+    for (let i = first;
          i < this.snakePath.length;
          i += this.framesPerOneLengthItem) {
-      const p = this.snakePath[i];
-      this.drawCircle(p.x, p.y, this.snakeFat, this.bodyColors[ i %  this.bodyColors.length ]);
-      this.strokeCircle(p.x, p.y, this.snakeFat, this.headColor);
+      const elp = this.snakePath[i];
+      this.drawCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ length %  this.bodyColors.length ]);
+      length--;
+      this.strokeCircle(elp.x, elp.y, this.snakeFat, this.headColor);
     }
 
-    const hp = this.position
+    const hp = this.p;
     this.drawCircle(hp.x, hp.y, this.snakeFat, this.headColor);
 
     const eyeRadius = this.snakeFat / 3;
@@ -72,7 +74,7 @@ export class Snake extends GameObject {
   }
 
   turn (): void {
-    this.snakePath.push( new Pos(this.position.x, this.position.y) );
+    this.snakePath.push( new Pos(this.p.x, this.p.y) );
     this.moveForwardSafe();
 
     if (this.snakePath.length > this.currentLength * this.framesPerOneLengthItem ) {
