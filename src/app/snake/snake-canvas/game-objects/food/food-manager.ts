@@ -17,7 +17,11 @@ export class FoodManager extends ManagerGameObject {
   beforeTurn (): void {
     if (this.timeCounter.isItTime()) {
       this.timeCounter.fixLastChecking();
-      if (this.field.foods.length <= 300) { this.makeFood(); }
+      if (this.field.foods.length < 5) {
+        for (let i = 0; i < 100; i++) { this.makeFood(); }
+      } else if (this.field.foods.length <= 300) {
+          this.makeFood();
+      }
     }
   }
 
