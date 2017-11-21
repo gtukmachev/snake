@@ -1,7 +1,7 @@
 import {SnakeGame} from '../snake-game';
 import {ManagerGameObject} from '../../../../game-core/manager-game-object';
 import {Food} from './food';
-import {TimeCounter} from '../time-counter';
+import {TimeCounter} from '../../../../game-core/time-counter';
 
 
 export class FoodManager extends ManagerGameObject {
@@ -17,7 +17,7 @@ export class FoodManager extends ManagerGameObject {
   beforeTurn (): void {
     if (this.timeCounter.isItTime()) {
       this.timeCounter.fixLastChecking();
-      if (this.field.foods.length <= 300) this.makeFood();
+      if (this.field.foods.length <= 300) { this.makeFood(); }
     }
   }
 

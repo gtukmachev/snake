@@ -1,7 +1,7 @@
 import {GameObject} from '../../../../game-core/game-object';
 import {SnakeGame} from '../snake-game';
-import {TimeCounter} from '../time-counter';
-import {Snake, SnakeElement} from '../snake';
+import {TimeCounter} from '../../../../game-core/time-counter';
+import {Snake} from '../snake';
 
 export class Food extends GameObject {
   private static sizeKoef = 3;
@@ -37,7 +37,6 @@ export class Food extends GameObject {
   draw (): void {
 
     this.prepareForDraw();
-    // this.drawCircle( this.position.x, this.position.y, this.sizeForDraw, this.color);
     this.drawCircle( this.position.x, this.position.y, this.sizeForDraw + this.addSize, this.radialGradient);
 
   }

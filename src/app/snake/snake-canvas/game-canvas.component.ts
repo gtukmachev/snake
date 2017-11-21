@@ -2,9 +2,8 @@ import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from 
 import {Observable, Subscription} from 'rxjs';
 import {Snake} from './game-objects/snake';
 import {SnakeGame} from './game-objects/snake-game';
-import {BackGround} from './game-objects/back-ground';
+import {SimpleBackGround} from '../../game-core/simple-back-ground';
 import {FoodManager} from './game-objects/food/food-manager';
-import {Game} from '../../game-core/game';
 
 @Component({
   selector: 'app-game-canvas',
@@ -21,11 +20,10 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
   running: boolean = false;
 
   snakeGame: SnakeGame;
-  backGround: BackGround;
+  backGround: SimpleBackGround;
   snake: Snake;
   foodManager: FoodManager;
 
-  snakeLength: number = 20;
   gameTimeFrame = 10;
 
 
@@ -44,7 +42,7 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
 
     this.snakeGame = new SnakeGame(ctx, this.xSize, this.ySize);
 
-    this.backGround  = new  BackGround(this.snakeGame);
+    this.backGround  = new  SimpleBackGround(this.snakeGame, '#fdffe3');
     this.snake       = new       Snake(this.snakeGame, this.xSize / 2, this.ySize / 2 );
     this.foodManager = new FoodManager(this.snakeGame);
 
