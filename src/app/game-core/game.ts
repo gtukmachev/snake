@@ -1,11 +1,11 @@
 import {GameObject} from './game-object';
-import {Position} from './position';
+import {Pos} from './position';
 export class Game {
 
   public ctx: CanvasRenderingContext2D;
   public gameObjects: GameObject[] = [];
   public gameObjectsForDelete: GameObject[] = [];
-  public size: Position = new Position(0, 0);
+  public size: Pos = new Pos(0, 0);
 
   constructor (ctx: CanvasRenderingContext2D, xSize: number, ySize: number) {
     this.ctx = ctx;

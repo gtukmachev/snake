@@ -1,6 +1,6 @@
 import {SnakeGame} from './snake-game';
 import {GameObject} from '../../../game-core/game-object';
-import {Position} from '../../../game-core/position';
+import {Pos} from '../../../game-core/position';
 import {Game} from '../../../game-core/game';
 
 export class Snake extends GameObject {
@@ -14,8 +14,8 @@ export class Snake extends GameObject {
                                '#2debce', '#2cdabd', '#29c3a6' ];
 
   speed: number = 2;      // movement speed (in pixels) of snake head by a turn
-  speedVector: Position = new Position(1,0);
-  directionVector: Position = new Position(1,0);
+  speedVector: Pos = new Pos(1,0);
+  directionVector: Pos = new Pos(1,0);
   currentLength: number = 10;
 
   stayCloneAfter = 7;

@@ -1,4 +1,4 @@
-export class Position {
+export class Pos {
 
   public x = 0;
   public y = 0;
@@ -8,7 +8,7 @@ export class Position {
     this.y = y;
   }
 
-  public distanceTo(p: Position): number {
+  public distanceTo(p: Pos): number {
     const dx = p.x - this.x;
     const dy = p.y - this.y;
     return Math.sqrt(dx * dx + dy * dy);
