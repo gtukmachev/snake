@@ -3,14 +3,14 @@ import {Pos} from './position';
 
 export abstract class CachedFilmGameObject<T> extends GameObject {
 
-  framesCache: any = { target: 'cache'};
+  static framesCache: any = { target: 'cache'};
 
   draw (): void {
     const currentFrameDescr:  FilmFrameDescription<T> = this.getCurrentFilmFrameDescription();
     let actualFrame:  FilmFrameDescription<T>;
 
-    if (currentFrameDescr.key in this.framesCache ) {
-      actualFrame = this.framesCache[currentFrameDescr.key];
+    if (currentFrameDescr.key in CachedFilmGameObject.framesCache ) {
+      actualFrame = CachedFilmGameObject.framesCache[currentFrameDescr.key];
     } else {
 
       const frameCanvas = <HTMLCanvasElement> document.createElement('canvas');
@@ -21,7 +21,7 @@ export abstract class CachedFilmGameObject<T> extends GameObject {
       this.drawFrame(frameCtx, currentFrameDescr);
 
       actualFrame = currentFrameDescr.withImage( frameCanvas );
-      this.framesCache[currentFrameDescr.key] = actualFrame;
+      CachedFilmGameObject.framesCache[currentFrameDescr.key] = actualFrame;
     }
 
     this.field.ctx.drawImage( actualFrame.image,

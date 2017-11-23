@@ -6,7 +6,7 @@ import {TimeCounter} from '../../../../game-core/time-counter';
 
 export class FoodManager extends ManagerGameObject {
 
-  timeCounter: TimeCounter = new TimeCounter(500); // ms
+  timeCounter: TimeCounter = new TimeCounter(1); // ms
   public field: SnakeGame;
 
   constructor (field: SnakeGame) {
@@ -17,9 +17,9 @@ export class FoodManager extends ManagerGameObject {
   beforeTurn (): void {
     if (this.timeCounter.isItTime()) {
       this.timeCounter.fixLastChecking();
-      if (this.field.foods.length < 5) {
+      if (this.field.foods.length < 10) {
         for (let i = 0; i < 100; i++) { this.makeFood(); }
-      } else if (this.field.foods.length <= 300) {
+      } else if (this.field.foods.length <= 100) {
           this.makeFood();
       }
     }
