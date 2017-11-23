@@ -20,12 +20,12 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit () {
-    const ctx: CanvasRenderingContext2D = this.canvasRef.nativeElement.getContext('2d');
+    const canvas: HTMLCanvasElement = this.canvasRef.nativeElement;
 
-    this.xSize = this.canvasRef.nativeElement.width;
-    this.ySize = this.canvasRef.nativeElement.height;
+    this.xSize = canvas.width;
+    this.ySize = canvas.height;
 
-    this.game = new SnakeGame(ctx, this.xSize, this.ySize);
+    this.game = new SnakeGame(canvas, this.xSize, this.ySize);
 
   }
 

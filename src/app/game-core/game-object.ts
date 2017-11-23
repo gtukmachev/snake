@@ -17,8 +17,8 @@ export abstract class GameObject {
   abstract turn(): void;
   abstract afterTurn(): void;
 
-  constructor (field: Game, x: number, y: number) {
-    this.field = field;
+  constructor (game: Game, x: number, y: number) {
+    this.field = game;
     this.p = new Pos(x, y);
   }
 

@@ -4,6 +4,7 @@ import {Snake} from './snake';
 import {Food} from './food/food';
 import {SimpleBackGround} from '../../../game-core/simple-back-ground';
 import {FoodManager} from './food/food-manager';
+import {TransparentBackground} from '../../../game-core/transparent-background';
 
 export class SnakeGame extends Game {
 
@@ -16,11 +17,11 @@ export class SnakeGame extends Game {
   public snakes: Snake[] = [];
   public foods: Food[] = [];
 
-  constructor (ctx: CanvasRenderingContext2D, xSize: number, ySize: number) {
-    super(ctx, xSize, ySize);
+  constructor (canvas: HTMLCanvasElement, xSize: number, ySize: number) {
+    super(canvas, xSize, ySize);
 
 
-    this.backGround  = new  SimpleBackGround(this, '#fdffe3');
+    this.backGround  = new  TransparentBackground(this);
     this.snake       = new       Snake(this, Math.floor(xSize / 2), Math.floor(ySize / 2) );
     this.foodManager = new FoodManager(this);
 

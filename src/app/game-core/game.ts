@@ -19,14 +19,16 @@ export class Game {
   gameTimer: Subscription;
 
 
+  public canvas: HTMLCanvasElement;
   public ctx: CanvasRenderingContext2D;
   public gameObjects: GameObject[] = [];
   public gameObjectsForDelete: GameObject[] = [];
   public size: Pos = new Pos(0, 0);
   public mousePos: Pos = new Pos(0, 0);
 
-  constructor (ctx: CanvasRenderingContext2D, xSize: number, ySize: number) {
-    this.ctx = ctx;
+  constructor (canvas: HTMLCanvasElement, xSize: number, ySize: number) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
     this.size.x = xSize;
     this.size.y = ySize;
 
