@@ -29,6 +29,8 @@ export class SnakeGame extends Game {
     this.add( this.backGround  );
     this.add( this.snake       );
 
+    this.gameTimeFrame = 1;
+
   }
 
   public onMouseMove(event: MouseEvent): void {

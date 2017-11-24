@@ -86,6 +86,60 @@ export class Snake extends GameObject {
   }
 
   draw () {
+    let lastIndex = this.snakePath.length - 1;
+    if (lastIndex < 0) { return; }
+
+    const ctx = this.field.ctx;
+
+    ctx.lineWidth = this.snakeFat*2;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(this.snakePath[lastIndex].x, this.snakePath[lastIndex].y);
+    lastIndex -= this.framesPerOneLengthItem;
+
+    for ( ; lastIndex >= this.framesPerOneLengthItem; lastIndex -= this.framesPerOneLengthItem ) {
+      ctx.lineTo(this.snakePath[lastIndex].x, this.snakePath[lastIndex].y);
+    }
+
+    if (lastIndex > 0) {
+      ctx.lineTo(this.snakePath[0].x, this.snakePath[0].y);
+    }
+
+    ctx.strokeStyle = '#fbffa4';
+    ctx.stroke();
+
+    const hp = this.p;
+    this.drawCircle(hp.x, hp.y, this.snakeFat, this.headColor);
+
+    const eyeRadius = this.snakeFat / 3;
+    const backOffset = eyeRadius / 3;
+    const eyeRadius1 = eyeRadius / 2;
+    const angle = Math.PI / 7;
+
+    const f = this.field.ctx;
+    f.save();
+    f.translate(hp.x, hp.y);
+    const centerEye = this.snakeFat-backOffset;
+    const centerEye1 = centerEye + eyeRadius - eyeRadius1;
+    const eyeX = this.directionVector.x * centerEye;
+    const eyeY = this.directionVector.y * centerEye;
+    const eyeX1 = this.directionVector.x * centerEye1;
+    const eyeY1 = this.directionVector.y * centerEye1;
+
+
+    f.rotate(angle);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    f.rotate(-2 * angle);
+    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    f.restore();
+
+  }
+
+/*
+  draw () {
 
 
     const first = this.snakePath.length % this.framesPerOneLengthItem;
@@ -136,6 +190,7 @@ export class Snake extends GameObject {
     f.restore();
 
   }
+*/
 
   beforeTurn (): void {
   }
