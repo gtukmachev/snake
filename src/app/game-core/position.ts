@@ -14,4 +14,9 @@ export class Pos {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
+  public equals(p: Pos): boolean {
+    return this.x === p.x && this.y === p.y;
+
+  }
+
 }

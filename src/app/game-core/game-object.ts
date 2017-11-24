@@ -69,7 +69,7 @@ export abstract class GameObject {
   }
 
   // draw helper methods
-  public drawCircle (x: number, y: number, radius: number, fillStyle: string | CanvasGradient | CanvasPattern) {
+  public fillCircle (x: number, y: number, radius: number, fillStyle: string | CanvasGradient | CanvasPattern) {
     this.field.ctx.beginPath();
     this.field.ctx.fillStyle = fillStyle;
     this.field.ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -83,5 +83,26 @@ export abstract class GameObject {
     this.field.ctx.arc(x, y, radius, 0, Math.PI * 2);
     this.field.ctx.stroke();
   }
+
+  public fcCircle (x: number, y: number, radius: number, strokeStyle: string | CanvasGradient | CanvasPattern, fillStyle: string | CanvasGradient | CanvasPattern) {
+    const ctx = this.field.ctx;
+    ctx.beginPath();
+    ctx.fillStyle = fillStyle;
+    ctx.strokeStyle = strokeStyle;
+
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  }
+/*
+  public fcCircle (x: number, y: number, radius: number, strokeStyle: string | CanvasGradient | CanvasPattern, fillStyle: string | CanvasGradient | CanvasPattern) {
+    const circle = new Path2D();
+    circle.arc(x, y, radius, 0, Math.PI * 2);
+    this.field.ctx.fillStyle = fillStyle;
+    this.field.ctx.strokeStyle = strokeStyle;
+    this.field.ctx.fill(circle);
+    this.field.ctx.stroke(circle);
+  }
+*/
 
 }

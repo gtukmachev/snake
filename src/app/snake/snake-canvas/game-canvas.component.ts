@@ -1,6 +1,7 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SnakeGame} from './game-objects/snake-game';
 import {CachedFilmGameObject} from '../../game-core/cached-film-game-object';
+import {Snake} from "./game-objects/snake";
 
 @Component({
   selector: 'app-game-canvas',
@@ -43,6 +44,10 @@ export class GameCanvasComponent implements OnInit, OnDestroy {
 
   public CachedFilmGameObjectFCL(): number {
     return Object.keys(CachedFilmGameObject.framesCache).length;
+  }
+
+  public CachedSnakeFrames(): number {
+    return Object.keys(Snake.framesCache).length;
   }
 
 }

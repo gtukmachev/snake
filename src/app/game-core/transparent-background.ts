@@ -14,6 +14,11 @@ export class TransparentBackground extends GameObject {
   draw (): void {
     // Draw background: optimized 'magic' hack-version
     this.field.canvas.width = this.field.canvas.width;
+    // this.field.ctx.translate(100,100);
+    if (!this.field.cameraPos.equals( this.field.cameraInitialPos )){
+      this.field.ctx.translate( this.field.cameraInitialPos.x - this.field.cameraPos.x, this.field.cameraInitialPos.y - this.field.cameraPos.y );
+    }
+
   }
 
   beforeTurn (): void {

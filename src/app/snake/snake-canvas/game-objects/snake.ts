@@ -3,7 +3,11 @@ import {GameObject} from '../../../game-core/game-object';
 import {Pos} from '../../../game-core/position';
 
 export class Snake extends GameObject {
+  static framesCache: any = { target: 'cache'};
+
   public isDrawable: boolean = true;
+
+  tailCircles: number = 0;
 
   snakePath: Pos[];
 
@@ -73,18 +77,21 @@ export class Snake extends GameObject {
   currentLength = 0;
   framesPerOneLengthItem = 5;
 
+
   constructor (field: SnakeGame, x: number, y: number) {
     super(field, x, y);
     this.snakePath = [];
+    this.speed = 2;
     this.increaseSnakeLength(10);
   }
 
   increaseSnakeLength(onLength: number):void {
     this.currentLength += onLength;
     this.snakeFat = 14 + this.currentLength / 10;
-    this.framesPerOneLengthItem = (this.snakeFat - (this.snakeFat % 3)) / 3;
+    this.framesPerOneLengthItem = (this.snakeFat - (this.snakeFat % 4)) / 4;
   }
 
+/*
   draw () {
     let lastIndex = this.snakePath.length - 1;
     if (lastIndex < 0) { return; }
@@ -110,7 +117,7 @@ export class Snake extends GameObject {
     ctx.stroke();
 
     const hp = this.p;
-    this.drawCircle(hp.x, hp.y, this.snakeFat, this.headColor);
+    this.fillCircle(hp.x, hp.y, this.snakeFat, this.headColor);
 
     const eyeRadius = this.snakeFat / 3;
     const backOffset = eyeRadius / 3;
@@ -129,41 +136,48 @@ export class Snake extends GameObject {
 
 
     f.rotate(angle);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
     f.rotate(-2 * angle);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
     f.restore();
 
   }
+*/
 
 /*
   draw () {
-
-
+    const ctx = this.field.ctx;
+    let circlesCount = 0;
     const first = this.snakePath.length % this.framesPerOneLengthItem;
     let length =  (this.snakePath.length - first) / this.framesPerOneLengthItem;
+
+    ctx.lineWidth = 4;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
 
     if (first !== 0) {
       length++;
       const elp = this.snakePath[0];
-      this.drawCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ length %  this.bodyColors.length ]);
+      this.fcCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ], this.bodyColors[ length %  this.bodyColors.length ]);
+      circlesCount++;
       length--;
-      this.strokeCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ]);
     }
 
     for (let i = first;
          i < this.snakePath.length;
          i += this.framesPerOneLengthItem) {
       const elp = this.snakePath[i];
-      this.drawCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ length %  this.bodyColors.length ]);
+      this.fcCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ], this.bodyColors[ length %  this.bodyColors.length ]);
+      circlesCount++;
       length--;
-      this.strokeCircle(elp.x, elp.y, this.snakeFat,  this.bodyColors[ (length + 30)  %  this.bodyColors.length ]);
     }
 
+    ctx.lineWidth = 1;
+
     const hp = this.p;
-    this.drawCircle(hp.x, hp.y, this.snakeFat, this.headColor);
+    this.fillCircle(hp.x, hp.y, this.snakeFat, this.headColor);
 
     const eyeRadius = this.snakeFat / 3;
     const backOffset = eyeRadius / 3;
@@ -182,15 +196,117 @@ export class Snake extends GameObject {
 
 
     f.rotate(angle);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
     f.rotate(-2 * angle);
-    this.drawCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.drawCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
     f.restore();
+
+    this.tailCircles = circlesCount;
 
   }
 */
+
+  draw() {
+    const ctx = this.field.ctx;
+    let circlesCount = 0;
+    const first = this.snakePath.length % this.framesPerOneLengthItem;
+    let length =  (this.snakePath.length - first) / this.framesPerOneLengthItem;
+
+
+    if (first !== 0) {
+      length++;
+      const elp = this.snakePath[0];
+      this.drawFrame(elp, this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ], this.bodyColors[ length %  this.bodyColors.length ]);
+      circlesCount++;
+      length--;
+    }
+
+    for (let i = first;
+         i < this.snakePath.length;
+         i += this.framesPerOneLengthItem) {
+      const elp = this.snakePath[i];
+      // this.fcCircle(elp.x, elp.y, this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ], this.bodyColors[ length %  this.bodyColors.length ]);
+      this.drawFrame(elp,         this.snakeFat, this.bodyColors[ (length + 30)  %  this.bodyColors.length ], this.bodyColors[ length %  this.bodyColors.length ]);
+      circlesCount++;
+      length--;
+    }
+
+    ctx.lineWidth = 1;
+
+    const hp = this.p;
+    this.fillCircle(hp.x, hp.y, this.snakeFat, this.headColor);
+
+    const eyeRadius = this.snakeFat / 3;
+    const backOffset = eyeRadius / 3;
+    const eyeRadius1 = eyeRadius / 2;
+    const angle = Math.PI / 7;
+
+    const f = this.field.ctx;
+    f.save();
+    f.translate(hp.x, hp.y);
+    const centerEye = this.snakeFat-backOffset;
+    const centerEye1 = centerEye + eyeRadius - eyeRadius1;
+    const eyeX = this.directionVector.x * centerEye;
+    const eyeY = this.directionVector.y * centerEye;
+    const eyeX1 = this.directionVector.x * centerEye1;
+    const eyeY1 = this.directionVector.y * centerEye1;
+
+    f.rotate(angle);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    f.rotate(-2 * angle);
+    this.fillCircle(eyeX, eyeY, eyeRadius, '#ffffff'); this.fillCircle(eyeX1, eyeY1, eyeRadius1, '#000000'); this.strokeCircle(eyeX, eyeY, eyeRadius, this.headColor);
+    f.restore();
+
+    this.tailCircles = circlesCount;
+
+  }
+
+  private drawFrame(p: Pos, radius: number, strokeStyle: string, fillStyle: string ): void {
+    const image = this.getFrame(radius, strokeStyle, fillStyle);
+    this.field.ctx.drawImage( image,
+      p.x - image.width / 2,
+      p.y - image.height / 2,
+    );
+
+  }
+
+  private getFrame(radius: number, strokeStyle: string, fillStyle: string ): HTMLCanvasElement {
+    const key = radius + '-' + strokeStyle + '-' + fillStyle;
+    const lineWidth = 4;
+    const lineWidth2 = 2;
+    let actualFrame: HTMLCanvasElement;
+    if (key in Snake.framesCache ) {
+      actualFrame = Snake.framesCache[key];
+    } else {
+
+      const frameCanvas = <HTMLCanvasElement> document.createElement('canvas');
+      frameCanvas.width = radius * 2 + lineWidth;
+      frameCanvas.height = radius * 2 + lineWidth;
+      const ctx: CanvasRenderingContext2D = frameCanvas.getContext('2d');
+      ctx.beginPath();
+      ctx.fillStyle = fillStyle;
+      ctx.strokeStyle = strokeStyle;
+      ctx.lineWidth = lineWidth;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+
+      ctx.arc(radius + lineWidth2, radius + lineWidth2, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      actualFrame = frameCanvas;
+      Snake.framesCache[key] = actualFrame;
+
+    }
+
+    return actualFrame;
+
+  }
+
 
   beforeTurn (): void {
   }

@@ -18,6 +18,11 @@ export class Game {
   gameTimeFrame = 1;
   gameTimer: Subscription;
 
+  cameraInitialPos: Pos; // center of rendered canvas
+  cameraPos: Pos; // in the beggining - this pos will be in center of rendered canvas
+  cameraActorFrame: Pos; // frame size around camera where actor can move without camera movement
+  actor: GameObject; // main game object - camera will follow this object
+
 
   public canvas: HTMLCanvasElement;
   public ctx: CanvasRenderingContext2D;
@@ -31,6 +36,9 @@ export class Game {
     this.ctx = canvas.getContext('2d');
     this.size.x = xSize;
     this.size.y = ySize;
+    this.cameraPos = new Pos( Math.floor(canvas.width / 2), Math.floor(canvas.height / 2) );
+    this.cameraInitialPos = new Pos( this.cameraPos.x, this.cameraPos.y );
+    this.cameraActorFrame = new Pos( Math.floor(canvas.width / 9), Math.floor(canvas.height / 8) );
 
   }
 
@@ -93,9 +101,27 @@ export class Game {
   }
 
   public gameActionTurn(): void {
+    if (this.actor) { this.followActor() }
     this.gameObjects.forEach( (gameObject: GameObject) => gameObject.beforeTurn() ); this.deleteMarkedElements();
     this.gameObjects.forEach( (gameObject: GameObject) => gameObject.turn() );       this.deleteMarkedElements();
     this.gameObjects.forEach( (gameObject: GameObject) => gameObject.afterTurn() );  this.deleteMarkedElements();
+  }
+
+  private followActor(): void {
+    const p = this.actor.p;
+
+    if (p.x < this.cameraPos.x - this.cameraActorFrame.x) {
+      this.cameraPos.x = Math.floor(p.x + this.cameraActorFrame.x);
+    } else if (p.x > this.cameraPos.x + this.cameraActorFrame.x) {
+      this.cameraPos.x = Math.floor(p.x - this.cameraActorFrame.x);
+    }
+
+    if (p.y < this.cameraPos.y - this.cameraActorFrame.y) {
+      this.cameraPos.y = Math.floor(p.y + this.cameraActorFrame.y);
+    } else if (p.y > this.cameraPos.y + this.cameraActorFrame.y) {
+      this.cameraPos.y = Math.floor(p.y - this.cameraActorFrame.y);
+    }
+
   }
 
   public gameFrameDraw(): void {

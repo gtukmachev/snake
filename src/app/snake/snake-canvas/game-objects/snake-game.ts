@@ -5,6 +5,8 @@ import {Food} from './food/food';
 import {SimpleBackGround} from '../../../game-core/simple-back-ground';
 import {FoodManager} from './food/food-manager';
 import {TransparentBackground} from '../../../game-core/transparent-background';
+import {CameraFrameObject} from "../../../game-core/camera-frame-object";
+import {WorldFrameObject} from "../../../game-core/world-frame-object";
 
 export class SnakeGame extends Game {
 
@@ -29,7 +31,14 @@ export class SnakeGame extends Game {
     this.add( this.backGround  );
     this.add( this.snake       );
 
-    this.gameTimeFrame = 1;
+    this.add( new CameraFrameObject(this, '#253c54') );
+    this.add( new WorldFrameObject(this, '#f3ffa2') );
+
+
+    this.actor = this.snake;
+
+    this.gameTimeFrame = 20;
+
 
   }
 
