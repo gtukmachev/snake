@@ -63,8 +63,8 @@ export abstract class GameObject {
   }
 
   public moveReturnOnField() {
-    if (this.p.x < 0) {this.p.x = 0; } else {if (this.p.x > this.field.size.x) { this.p.x = this.field.size.x; }}
-    if (this.p.y < 0) {this.p.y = 0; } else {if (this.p.y > this.field.size.y) { this.p.y = this.field.size.y; }}
+    if (this.p.x < 0) {this.p.x = 0; } else {if (this.p.x > this.field.worldSize.x) { this.p.x = this.field.worldSize.x; }}
+    if (this.p.y < 0) {this.p.y = 0; } else {if (this.p.y > this.field.worldSize.y) { this.p.y = this.field.worldSize.y; }}
     // todo: add implementation for grid indexing objects
   }
 

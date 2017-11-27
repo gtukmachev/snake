@@ -18,24 +18,29 @@ export class Game {
   gameTimeFrame = 1;
   gameTimer: Subscription;
 
-  cameraInitialPos: Pos; // center of rendered canvas
-  cameraPos: Pos; // in the beggining - this pos will be in center of rendered canvas
-  cameraActorFrame: Pos; // frame size around camera where actor can move without camera movement
-  actor: GameObject; // main game object - camera will follow this object
 
 
   public canvas: HTMLCanvasElement;
   public ctx: CanvasRenderingContext2D;
   public gameObjects: GameObject[] = [];
   public gameObjectsForDelete: GameObject[] = [];
-  public size: Pos = new Pos(0, 0);
   public mousePos: Pos = new Pos(0, 0);
+
+  public worldSize: Pos = new Pos(0, 0);
+
+  public cameraInitialPos: Pos; // center of rendered canvas
+  public cameraPos: Pos; // in the beggining - this pos will be in center of rendered canvas
+  public cameraShift = new Pos(0,0); //
+  public cameraActorFrame: Pos; // frame size around camera where actor can move without camera movement
+  public canersViewFrameSize: Pos; //
+
+  public actor: GameObject; // main game object - camera will follow this object
 
   constructor (canvas: HTMLCanvasElement, xSize: number, ySize: number) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-    this.size.x = xSize;
-    this.size.y = ySize;
+    this.worldSize.x = xSize;
+    this.worldSize.y = ySize;
     this.cameraPos = new Pos( Math.floor(canvas.width / 2), Math.floor(canvas.height / 2) );
     this.cameraInitialPos = new Pos( this.cameraPos.x, this.cameraPos.y );
     this.cameraActorFrame = new Pos( Math.floor(canvas.width / 9), Math.floor(canvas.height / 8) );
@@ -112,14 +117,18 @@ export class Game {
 
     if (p.x < this.cameraPos.x - this.cameraActorFrame.x) {
       this.cameraPos.x = Math.floor(p.x + this.cameraActorFrame.x);
+      this.cameraShift.x = this.cameraInitialPos.x - this.cameraPos.x;
     } else if (p.x > this.cameraPos.x + this.cameraActorFrame.x) {
       this.cameraPos.x = Math.floor(p.x - this.cameraActorFrame.x);
+      this.cameraShift.x = this.cameraInitialPos.x - this.cameraPos.x;
     }
 
     if (p.y < this.cameraPos.y - this.cameraActorFrame.y) {
       this.cameraPos.y = Math.floor(p.y + this.cameraActorFrame.y);
+      this.cameraShift.y = this.cameraInitialPos.y - this.cameraPos.y;
     } else if (p.y > this.cameraPos.y + this.cameraActorFrame.y) {
       this.cameraPos.y = Math.floor(p.y - this.cameraActorFrame.y);
+      this.cameraShift.y = this.cameraInitialPos.y - this.cameraPos.y;
     }
 
   }
@@ -154,13 +163,13 @@ export class Game {
   }
 
   public onMouseMove(event: MouseEvent): void {
-    this.mousePos.x = event.layerX;
-    this.mousePos.y = event.layerY;
+    this.mousePos.x = event.layerX - this.cameraShift.x;
+    this.mousePos.y = event.layerY - this.cameraShift.y;
   }
 
   public onMouseDown(event: MouseEvent): void {
-    this.mousePos.x = event.layerX;
-    this.mousePos.y = event.layerY;
+    this.mousePos.x = event.layerX - this.cameraShift.x;
+    this.mousePos.y = event.layerY - this.cameraShift.y;
   }
 
   public onDestroy(): void {

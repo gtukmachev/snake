@@ -7,6 +7,7 @@ import {Pos} from '../../../../game-core/position';
 export class Food extends CachedFilmGameObject<FoodState> {
   private static sizeKoef = 3;
   private static incKoef = 1.1; // it have to be > 1 !!!!!
+  private static color = ['#38ff6c', '#57ffb8', '#61fdff', '#66bdff', '#6a8dff', '#9671ff', '#c670ff', '#ff67f0', '#ff4599', '#ff3c2f' ];
 
   public isDrawable: boolean = true;
   public field: SnakeGame;
@@ -15,7 +16,6 @@ export class Food extends CachedFilmGameObject<FoodState> {
   private eatPerTern = 1;
 
   private sizeForDraw: number;
-  private color: Array<string>;
 
   private maxAdd  = 0;
   private addSize = 0;
@@ -25,9 +25,8 @@ export class Food extends CachedFilmGameObject<FoodState> {
 
   public active: boolean = false;
 
-  constructor (field: SnakeGame, x: number, y: number, size: number, color:  Array<string>) {
+  constructor (field: SnakeGame, x: number, y: number, size: number) {
     super(field, x, y);
-    this.color = color;
     this.size = size;
   }
 
@@ -35,7 +34,7 @@ export class Food extends CachedFilmGameObject<FoodState> {
   getCurrentFilmFrameDescription(): FilmFrameDescription<FoodState> {
     const state = new FoodState(
       this.sizeForDraw + this.addSize,
-      this.color[this._size % this.color.length]
+      Food.color[this._size % Food.color.length]
     );
 
     const sz = Math.floor( state.radius * 2 + 1);

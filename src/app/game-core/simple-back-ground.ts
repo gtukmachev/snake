@@ -15,7 +15,7 @@ export class SimpleBackGround extends GameObject {
   draw (): void {
     // Draw background (which also effectively clears any previous drawing)
     this.field.ctx.fillStyle = this.color;
-    this.field.ctx.fillRect(0, 0, this.field.size.x, this.field.size.y);
+    this.field.ctx.fillRect(0, 0, this.field.worldSize.x, this.field.worldSize.y);
   }
 
   beforeTurn (): void {

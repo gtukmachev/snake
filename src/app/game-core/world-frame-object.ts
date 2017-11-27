@@ -16,7 +16,7 @@ export class WorldFrameObject extends GameObject {
     const ctx = this.field.ctx;
     ctx.strokeStyle = this.color;
     ctx.lineWidth = 5;
-    ctx.strokeRect( 0,0, this.field.size.x, this.field.size.y);
+    ctx.strokeRect( 0,0, this.field.worldSize.x, this.field.worldSize.y);
 
   }
 
